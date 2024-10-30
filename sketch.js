@@ -23,9 +23,9 @@ function draw() {
   
   // Left tree
   fill('brown');
-  rect(50 - 7.5, 230, 15, 30);
+  rect(42.5, 230, 15, 30);
   fill(0, 100, 0); //
-  triangle(50 - 25, 230, 50 + 25, 230, 50, 175);
+  triangle(25, 230, 50 + 25, 230, 50, 175);
 
   // Right tree
   fill('brown');
@@ -55,6 +55,18 @@ function draw() {
   rect(240, 270, 10, 10); // Right window for House 2
   rect(310, 270, 10, 10); // Left window for House 3
   rect(340, 270, 10, 10); // Right window for House 3
+  
+  // Pond
+  fill(65,107,223)
+  ellipse(60,350,140, 60)
+  
+  // Lily pads
+  fill('green')
+  ellipse(45,335,20, 5)
+  fill('green')
+  ellipse(85,350,20, 5)
+  fill('green')
+  ellipse(35,360,20, 5)
   
   // Clouds
   fill(255);
