@@ -1,5 +1,6 @@
-// Custom variable for x coordinate of clouds
 let cloudOneX = 0;
+let sunX = 0;
+
 
 function setup() {
   createCanvas(400, 400);
@@ -15,16 +16,26 @@ function draw() {
   fill('green'); // Green for grass
   rect(0, 250, 400, 200); // Grass at the bottom
   
+  
+  // Sun
+  // Parabola equation from ChatGPT
+  fill('yellow');
+  let sunY = (1/200) * sunX * sunX - 2 * sunX - 100 + 300;
+  ellipse(sunX, sunY, 30, 30);
+
+  if (sunX < width) {
+    sunX += 1;
+  }
+  
   // Volcano
   stroke(0);
   fill(80);
   quad(0, 250, 150, 100, 250, 100, 400, 250);
 
-  
   // Left tree
   fill('brown');
   rect(42.5, 230, 15, 30);
-  fill(0, 100, 0); //
+  fill(0, 100, 0); 
   triangle(25, 230, 50 + 25, 230, 50, 175);
 
   // Right tree
@@ -48,7 +59,7 @@ function draw() {
   rect(325, 280, 10, 20); // Door for House 3
 
   // Windows
-  fill(173, 216, 230); //
+  fill(173, 216, 230);
   rect(110, 270, 10, 10); // Left window for House 1
   rect(140, 270, 10, 10); // Right window for House 1
   rect(210, 270, 10, 10); // Left window for House 2
@@ -57,23 +68,20 @@ function draw() {
   rect(340, 270, 10, 10); // Right window for House 3
   
   // Pond
-  fill(65,107,223)
-  ellipse(60,350,140, 60)
+  fill(65, 107, 223);
+  ellipse(60, 350, 140, 60);
   
   // Lily pads
-  fill('green')
-  ellipse(45,335,20, 5)
-  fill('green')
-  ellipse(85,350,20, 5)
-  fill('green')
-  ellipse(35,360,20, 5)
+  fill('green');
+  ellipse(45, 335, 20, 5);
+  ellipse(85, 350, 20, 5);
+  ellipse(35, 360, 20, 5);
   
   // Clouds
   fill(255);
   ellipse(cloudOneX, 50, 50, 20);
   ellipse(cloudOneX - 40, 100, 60, 20);
 
-  // Sets the x coordinate to the frame count
-  // Resets at left edge
-  cloudOneX = frameCount % width
+  // Update cloud position (resets at left edge)
+  cloudOneX = frameCount % width;
 }
