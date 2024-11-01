@@ -1,31 +1,50 @@
 let cloudOneX = 0;
 let sunX = 0;
-
+let moonX = -30
 
 function setup() {
   createCanvas(400, 400);
-  background(135, 206, 250); // Light blue sky
-  frameRate(15); // Set frame rate to 15
+  background(135, 206, 250);
+  frameRate(15);
 }
 
 function draw() {
-  // Redraw the background to clear previous frames
-  background(135, 206, 250); // Light blue sky
+  if (sunX < width) {
+    // Daytime background
+    background(135, 206, 250);
+  } else {
+    // Nighttime background
+    background(25, 25, 112);
+  }
   
-  // Grass
-  fill('green'); // Green for grass
-  rect(0, 250, 400, 200); // Grass at the bottom
-  
-  
-  // Sun
+    // Sun
   // Parabola equation from ChatGPT
   fill('yellow');
-  let sunY = (1/200) * sunX * sunX - 2 * sunX - 100 + 300;
+  let sunY = (1/200) * (sunX - width/2) * (sunX - width/2) + 50;
   ellipse(sunX, sunY, 30, 30);
 
-  if (sunX < width) {
-    sunX += 1;
+  if (sunX < width + 30) {
+    sunX += 2;
   }
+  else if (moonX >= width + 30) {
+    sunX = -30; moonX = -30
+  }
+  
+  // Moon
+  //Parabola equation from ChatGPT
+  if (sunX >= width) {
+    fill('white');
+    let moonY = (1/200) * (moonX - width/2) * (moonX - width/2) + 50;
+    ellipse(moonX, moonY, 20, 20);
+
+    if (moonX < width + 30) {
+      moonX += 2;
+    }
+  }
+  
+  // Grass
+  fill('green');
+  rect(0, 250, 400, 200);
   
   // Volcano
   stroke(0);
