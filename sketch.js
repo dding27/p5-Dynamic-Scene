@@ -1,6 +1,9 @@
 let cloudOneX = 0;
 let sunX = 0;
 let moonX = -30
+let particles = [];
+let particleTexture;
+let particleSystem;
 
 function setup() {
   createCanvas(400, 400);
@@ -103,4 +106,42 @@ function draw() {
 
   // Update cloud position (resets at left edge)
   cloudOneX = frameCount % width;
+  
+     particles.push(new Particle(width / 2, height / 5));
+ 
+  // Update and display each particle
+  for (let i = particles.length - 1; i >= 0; i--) {
+    particles[i].update();
+    particles[i].display();
+   
+    // Remove the particle if it becomes transparent
+    if (particles[i].isFinished()) {
+      particles.splice(i, 1);
+    }
+  }
+}
+
+// Particle class
+class Particle {
+  constructor(x, y) {
+    this.pos = createVector(x, y);
+    this.vel = p5.Vector.random2D().mult(random(1, 3));
+    this.lifespan = 255; // Starting alpha (transparency) value
+  }
+ 
+  update() {
+    this.pos.add(this.vel);
+    this.lifespan -= 5; // Fade out over time
+  }
+ 
+  display() {
+    noStroke();
+    fill(255, 0, 0, this.lifespan); // Red color with fading alpha
+    ellipse(this.pos.x, this.pos.y, 10);
+  }
+ 
+  isFinished() {
+    return this.lifespan < 0; // Check if the particle is fully faded
+  }
+
 }
