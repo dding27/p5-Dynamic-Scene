@@ -12,31 +12,37 @@ function setup() {
 
 function draw() {
   if (sunX < width) {
-    // Daytime background
+    // Daytime background - When sun is in the canvas the background is     light blue
     background(135, 206, 250);
   } else {
-    // Nighttime background
+    // Nighttime background - When sun is out of canvas the background       is dark blue
     background(25, 25, 112);
   }
   
   // Sun
   fill('yellow');
+  // Parabola equation for sun path
+  // ChatGPT was given 3 points on the Canvas to determine the key         points of the path. Using the 3 points a parabola equation was           generated and I inputted my own variables into the original equation.   I do not have the chatlog anymore as I deleted it but was given         permission this one time to use the generative function of ChatGPT.
   let sunY = (1/200) * (sunX - width/2) * (sunX - width/2) + 50;
   ellipse(sunX, sunY, 30, 30);
 
+  // Start position and speed of sun
   if (sunX < width + 30) {
     sunX += 2;
+  // Once the sun sets the position is reset and the moon will pop up     instead
   } else if (moonX >= width + 30) {
-    sunX = -30; 
-    moonX = -30;
+    sunX = -30; // Reset position so the sun isn't in canvas frame
+    moonX = -30; // Reset position so the moon isn't in canvas frame
   }
   
   // Moon
   if (sunX >= width) {
     fill('white');
+    // Parabola equation for moon path copied directly from sun path
     let moonY = (1/200) * (moonX - width/2) * (moonX - width/2) + 50;
     ellipse(moonX, moonY, 20, 20);
 
+     // Start position and speed of moon
     if (moonX < width + 30) {
       moonX += 2;
     }
@@ -49,6 +55,7 @@ function draw() {
   // Volcano
   stroke(0);
   fill(80);
+  // Instead of using triangle, quad was used so that the flat top of     the volcano could be created by determining 4 specific points
   quad(0, 250, 150, 100, 250, 100, 400, 250);
 
   // Left tree
@@ -63,7 +70,7 @@ function draw() {
   fill(0, 100, 0);
   triangle(325, 230, 375, 230, 350, 175);
 
-  // Houses
+  // Houses (only shown if visible)
   if (housesVisible) {
   fill(255, 228, 196);
   rect(100, 260, 60, 40);
@@ -77,8 +84,6 @@ function draw() {
   rect(125, 280, 10, 20);
   rect(225, 280, 10, 20);
   rect(325, 280, 10, 20);
-
-  // Windows
   fill(173, 216, 230);
   rect(110, 270, 10, 10);
   rect(140, 270, 10, 10);
@@ -126,7 +131,7 @@ function draw() {
   text("Click Me", width - 10, height - 10);
 }
 
-// Toggle house visibility
+// Toggle house visibility created using boolean
 function mousePressed() {
   housesVisible = !housesVisible;
 }
