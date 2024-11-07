@@ -111,6 +111,9 @@ function draw() {
   // Update cloud position (resets at left edge)
   cloudOneX = frameCount % width;
   
+  // Some sources I used.
+  //https://chatgpt.com/share/672a7ceb-5d20-8002-970a-07c406142102
+  //https://www.youtube.com/watch?v=UcdigVaIYAk
   particles.push(new Particle(width / 2, height / 5));
  
   // Update and display each particle
