@@ -111,21 +111,17 @@ function draw() {
   // Update cloud position (resets at left edge)
   cloudOneX = frameCount % width;
   
-  // Some sources I used.
-  //https://chatgpt.com/share/672a7ceb-5d20-8002-970a-07c406142102
-  //https://www.youtube.com/watch?v=UcdigVaIYAk
-  particles.push(new Particle(width / 2, height / 5));
+     particles.push(new Particle(width / 2, height / 5));
+  //adds to the Letparticles [] array in the top
+  //new.particle creates a particle at the width divided by two and height divided by 5.
  
   // Update and display each particle
-  for (let i = particles.length - 1; i >= 0; i--) {
+  for (let i = particles.length - 1; i >= 0; i--){
     particles[i].update();
     particles[i].display();
-   
-    // Remove the particle if it becomes transparent
-    if (particles[i].isFinished()) {
-      particles.splice(i, 1);
-    }
-  }
+  // for (let i = particles.length - 1; i >= 0; i--) is code that makes   the particles loop backwards. This happens until it reaches its first   particle back again.
+  //Particle[i].update and particles[i] creates a new velocity change      and shape change
+}
   
   // Caption
   fill(255);
@@ -134,31 +130,42 @@ function draw() {
   text("Click Me", width - 10, height - 10);
 }
 
-// Toggle house visibility created using boolean
-function mousePressed() {
+  // Toggle house visibility created using boolean
+  function mousePressed() {
   housesVisible = !housesVisible;
 }
 
 // Particle class
 class Particle {
   constructor(x, y) {
+    this.x = 300;
+    this.y = 100;
     this.pos = createVector(x, y);
-    this.vel = p5.Vector.random2D().mult(random(1, 3));
-    this.lifespan = 255;
+    this.vel = p5.Vector.random2D().mult(random(-5, -1));
+    //this velocity creates random 2d particle movement that ranges from either the number -5,-1.
+    this.lifespan = 255; // Starting transparency value
   }
  
   update() {
-    this.pos.add(this.vel);
-    this.lifespan -= 5;
+    this.pos.add(this.vel);//updates particles position using velocity.
+    this.lifespan -= 5; // Fade out over time
   }
+ 
  
   display() {
     noStroke();
-    fill(255, 0, 0, this.lifespan);
-    ellipse(this.pos.x, this.pos.y, 10);
+    fill(185, 0, 0, this.lifespan); // Red color
+    ellipse(this.pos.x, this.pos.y, 13);
+    // 13 defines the size of the circles of the particles
+    //this.pos.x and this.pos.y shows th
   }
  
   isFinished() {
-    return this.lifespan < 0;
+    return this.lifespan < 0; // Check if the particle is fully faded
   }
+
 }
+// Some sources I used.
+//https://chatgpt.com/share/672a7ceb-5d20-8002-970a-07c406142102
+
+//https://www.youtube.com/watch?v=UcdigVaIYAk
